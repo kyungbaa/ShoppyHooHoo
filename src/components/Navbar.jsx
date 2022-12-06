@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { login } from '../api/firebase';
+
 export default function Navbar() {
   return (
     <>
@@ -22,7 +24,7 @@ export default function Navbar() {
           <Link to="/products/new">
             <li>New</li>
           </Link>
-          <button>Login</button>
+          <button onClick={login}>Login</button>
         </ul>
       </header>
     </>
