@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { addNewProduct } from '../api/firebase';
 import { uploadImage } from '../api/uploader';
 import Button from '../components/ui/Button';
 
@@ -17,11 +18,12 @@ export default function NewProduct() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    uploadImage(file).then((url) => {
-      console.log(url);
-    });
     //제품의 사진을 cloudy에 업로드하고 url획득
-    //firebase에 새로운 제품 추가
+    uploadImage(file).then((url) => {
+      //firebase에 새로운 제품 추가
+
+      addNewProduct(product, url);
+    });
   };
   return (
     <section>
