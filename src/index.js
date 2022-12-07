@@ -1,16 +1,15 @@
 import React from 'react';
-import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
-import AllProducts from './pages/AllProducts';
-import Home from './pages/Home';
-import MyCart from './pages/MyCart';
-import NewProduct from './pages/NewProduct';
-import ProductDetail from './pages/ProductDetail';
 import App from './App';
+import Home from './pages/Home';
+import AllProducts from './pages/AllProducts';
+import ProductDetail from './pages/ProductDetail';
+import NewProduct from './pages/NewProduct';
+import MyCart from './pages/MyCart';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './pages/ProtectedRoute';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
@@ -19,14 +18,11 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, path: '/', element: <Home /> },
-      {
-        path: '/products',
-        element: <AllProducts />,
-      },
+      { path: '/products', element: <AllProducts /> },
       {
         path: '/products/new',
         element: (
-          <ProtectedRoute requireAdmin={true}>
+          <ProtectedRoute requireAdmin>
             <NewProduct />
           </ProtectedRoute>
         ),
@@ -46,11 +42,10 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
 );
-
-reportWebVitals();
