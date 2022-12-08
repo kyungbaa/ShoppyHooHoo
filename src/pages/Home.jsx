@@ -1,9 +1,11 @@
 import React from 'react';
-import Banner from '../components/ui/Banner';
+import Products from '../components/Products';
+import Banner from '../components/Banner';
 export default function Home() {
   return (
-    <>
+    <section>
       <Banner />
-    </>
+      <Products />
+    </section>
   );
 }
