@@ -20,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
 const database = getDatabase(app);
-console.log(set);
+
 export function login() {
   signInWithPopup(auth, provider);
 }
@@ -56,12 +56,20 @@ async function adminUser(user) {
 
 export async function addNewProduct(product, image) {
   const id = uuid();
-  console.log(product);
-  set(ref(database, `products/${id}`), {
+  return set(ref(database, `products/${id}`), {
     ...product,
     id,
     price: parseInt(product.price),
     image,
     option: product.options.split(','),
+  });
+}
+
+export async function getProducts() {
+  return get(ref(database, 'products')).then((snapshot) => {
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val());
+    }
+    return [];
   });
 }
