@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import User from './User';
 import Button from './ui/Button';
-import { useAuthContext } from './context/AuthContext';
-
+import { useAuthContext } from '../context/AuthContext';
+import CartStatus from './CartStatus';
 export default function Navbar() {
   const { user, login, logout } = useAuthContext();
 
@@ -23,8 +23,9 @@ export default function Navbar() {
             <li>products</li>
           </Link>
           {user && (
-            <Link to="/carts">
+            <Link to="/carts" className="relative">
               <li>Carts</li>
+              <CartStatus />
             </Link>
           )}
           {user && user.isAdmin && (

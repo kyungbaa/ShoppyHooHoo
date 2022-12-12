@@ -40,7 +40,7 @@ export default function NewProduct() {
       <h2 className="text-2xl font-bold my-16  text-center">
         새로운 제품 등록
       </h2>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center md:flex-row">
         <div className="h-100 ">
           {file && (
             <img
@@ -53,10 +53,10 @@ export default function NewProduct() {
         <form className="flex flex-col px-20 " onSubmit={handleSubmit}>
           {success && (
             <div
-              class=" p-4 my-4 text-sm text-gray-700 bg-gray-100 rounded-sm dark:bg-gray-700 dark:text-gray-300"
+              className=" p-4 my-4 text-sm text-gray-700 bg-gray-100 rounded-sm dark:bg-gray-700 dark:text-gray-300"
               role="alert"
             >
-              <span class="font-bold mr-3">Success</span>
+              <span className="font-bold mr-3">Success</span>
               {success}
             </div>
           )}

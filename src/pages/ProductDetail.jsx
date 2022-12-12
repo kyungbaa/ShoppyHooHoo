@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { addOrUpdateToCart } from '../api/firebase';
 import Button from '../components/ui/Button';
+import { useAuthContext } from '../context/AuthContext';
 export default function ProductDetail() {
+  const { uid } = useAuthContext();
+
   const {
     state: {
       product: { id, image, title, description, category, price, option },
@@ -9,7 +13,11 @@ export default function ProductDetail() {
   } = useLocation();
   const [selected, setSelected] = useState(option && option[0]);
   const hadleSelect = (e) => setSelected(e.target.value);
-  const handleAddCart = () => {};
+
+  const handleAddCart = (e) => {
+    const product = { id, image, title, price, option: selected, quantity: 1 };
+    addOrUpdateToCart(uid, product);
+  };
   return (
     <>
       <h2 className="mx-12 mt-10 mb-10 text-gray-900 font-bold text-xl text-center">
@@ -23,9 +31,10 @@ export default function ProductDetail() {
           <p className="py-4 ">{description}</p>
 
           <div className="flex items-center pb-6 ">
-            <lable htmlFor="select" className="mr-3">
+            <label htmlFor="select" className="mr-3">
               option:
-            </lable>
+            </label>
+
             <select
               id="select"
               onChange={hadleSelect}
@@ -37,6 +46,12 @@ export default function ProductDetail() {
                   <option key={index}>{option}</option>
                 ))}
             </select>
+          </div>
+          <div
+            className=" p-4 my-4 text-sm text-gray-700 bg-gray-100 rounded-sm dark:bg-gray-700 dark:text-gray-300"
+            role="alert"
+          >
+            <span className="font-bold mr-3">Success</span>
           </div>
           <Button text={'Add Cart'} onClick={handleAddCart} />
         </div>

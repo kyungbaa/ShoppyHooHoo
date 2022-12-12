@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { login, logout, onUserStateChange } from '../../api/firebase';
+import { login, logout, onUserStateChange } from '../api/firebase';
 import React, { useState, useEffect } from 'react';
 const AuthContext = createContext();
 
@@ -16,7 +16,9 @@ export function AuthContextProvider({ children }) {
     // onUserStateChange(setUser); --> 인자와 참조값이 동일하므로 이렇게 축약 가능
   }, []);
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, uid: user && user.uid, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

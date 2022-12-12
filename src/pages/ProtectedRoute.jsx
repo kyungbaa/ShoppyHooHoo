@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuthContext } from '../components/context/AuthContext';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function ProtectedRoute({ children, requireAdmin }) {
   // 권한이 없는 유저가 권한이 필요한 컴포넌트에 접근하는 것을 막아주기 위한 컴포넌트
