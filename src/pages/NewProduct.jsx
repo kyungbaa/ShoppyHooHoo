@@ -40,7 +40,7 @@ export default function NewProduct() {
       <h2 className="text-2xl font-bold my-16  text-center">
         새로운 제품 등록
       </h2>
-      <div className="flex justify-center items-center md:flex-row">
+      <div className="flex justify-center items-center ">
         <div className="h-100 ">
           {file && (
             <img
