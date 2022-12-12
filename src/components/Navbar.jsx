@@ -14,7 +14,7 @@ export default function Navbar() {
           to="/"
           className="flex items-center text-2xl font-bold text-brand"
         >
-          <img src="./logo192.png" alt="HooHoo Logo" className="w-9" />
+          <img src="./logo192.png" alt="HooHoo Logo" className="w-7 mr-3" />
           <h1>HooHoo</h1>
         </Link>
 
