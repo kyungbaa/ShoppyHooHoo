@@ -9,7 +9,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="navbar navbar-expand-lg  py-4 px-2 bg-white relative flex items-center w-full justify-between">
+      <header className="navbar navbar-expand-lg  py-4 px-14 bg-white relative flex items-center w-full justify-between">
         <Link
           to="/"
           className="flex items-center text-2xl font-bold text-brand"

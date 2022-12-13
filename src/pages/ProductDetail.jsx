@@ -1,28 +1,36 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { addOrUpdateToCart } from '../api/firebase';
 import Button from '../components/ui/Button';
-import { useAuthContext } from '../context/AuthContext';
+import useCart from '../hooks/useCart';
 export default function ProductDetail() {
-  const { uid } = useAuthContext();
-
+  const { addOrUpdateItem } = useCart();
   const {
     state: {
       product: { id, image, title, description, category, price, option },
     },
   } = useLocation();
+
   const [selected, setSelected] = useState(option && option[0]);
+  const [success, setSuccess] = useState(false);
   const hadleSelect = (e) => setSelected(e.target.value);
 
   const handleAddCart = (e) => {
     const product = { id, image, title, price, option: selected, quantity: 1 };
-    addOrUpdateToCart(uid, product);
+    addOrUpdateItem.mutate(product, {
+      onSuccess: () => {
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+        }, 3000);
+      },
+    });
   };
   return (
     <>
       <h2 className="mx-12 mt-10 mb-10 text-gray-900 font-bold text-xl text-center">
         {category}
       </h2>
+
       <section className="flex flex-col md:flex-row p-4 justify-center">
         <img src={image} alt={title} className="w-96 px-4 basis-4/12" />
         <div className="w-full basis-5/12 flex flex-col p-4">
@@ -47,12 +55,16 @@ export default function ProductDetail() {
                 ))}
             </select>
           </div>
-          <div
-            className=" p-4 my-4 text-sm text-gray-700 bg-gray-100 rounded-sm dark:bg-gray-700 dark:text-gray-300"
-            role="alert"
-          >
-            <span className="font-bold mr-3">Success</span>
-          </div>
+          {success && (
+            <div
+              className=" p-4 my-4 text-sm text-gray-700 bg-gray-100 rounded-sm dark:bg-gray-700 dark:text-gray-300"
+              role="alert"
+            >
+              <span className="font-bold mr-3">
+                장바구니에 성공적으로 담겼습니다.
+              </span>
+            </div>
+          )}
           <Button text={'Add Cart'} onClick={handleAddCart} />
         </div>
       </section>

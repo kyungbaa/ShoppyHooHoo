@@ -1,22 +1,24 @@
 import React from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { addOrUpdateToCart, removeFromCart } from '../api/firebase';
+import useCart from '../hooks/useCart';
 export default function CartItem({
   product,
   product: { id, image, title, option, quantity, price },
   uid,
 }) {
+  const { addOrUpdateItem, removeItem } = useCart();
+
   const handleMinus = () => {
     if (quantity < 2) return;
-    addOrUpdateToCart(uid, { ...product, quantity: quantity - 1 });
+    addOrUpdateItem.mutate({ ...product, quantity: quantity - 1 });
   };
   const handlePlus = () =>
-    addOrUpdateToCart(uid, { ...product, quantity: quantity + 1 });
+    addOrUpdateItem.mutate({ ...product, quantity: quantity + 1 });
 
-  const handleDelete = () => removeFromCart(uid, id);
+  const handleDelete = () => removeItem.mutate(id);
 
   return (
-    <li className="flex justify-between items-center  border-b border-gray-900 px-2">
+    <li className="flex justify-between items-center  border-b border-gray-900 ">
       <img src={image} alt={title} className="w-24 md:w-48" />
       <div className="flex flex-1 justify-between">
         <div className="basis-3/5 ml-10">
